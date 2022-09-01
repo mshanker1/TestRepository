@@ -1,0 +1,222 @@
+---
+title: "Introduction"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction to R
+This tutorial introduces you to R. Nearly all code and topics are from [R in action by Manning Publications](https://www.manning.com/books/r-in-action#toc), which you can access at the above link.
+
+### R and RStudio
+For the most part, when we work with R on our computer, we use an interface like [RStudio](https://www.rstudio.com/products/rstudio/download/). Your instructor will go over the RStudio interface in class, and explain how to create a R or RMarkdown document. 
+
+#### RStudio Cloud
+Those of you using Chromebooks will need to use [RStudio Cloud](http://rstudio.cloud) to run R. Here is a short [tutorial](https://video.kent.edu/media/RStudio+Cloud+Access/1_3x067gfq) in accessing RStudio Cloud, creating a project, and uploading the required files. Alternatively, follow these steps:
+
+If you are using RStudio online, then proceed as follows:
+
+1. Log into [RStudio Cloud](https://rstudio.cloud/). Note that you can click on *Log in with Google*, and then choose your Kent account to log in
+2. Create a new Workspace. Call is something like *Class*. 
+3. Next, create a new project in this workspace. This is where you will put all your files. Call it something like *BA1*
+4. Upload both the Introduction.RMD file (if you haven't done it yet), and the Tech-Sales-Reps.csv files to your project.
+5. Open the *Introduction.RMD* file.
+6. When RStudio prompts with missing packages, choose *Install*. Wait until the installation is finished.
+7. Run Document
+
+### Packages
+Before we begin, let's install the necessary packages. Packages contain functions that we use
+```{r eval=TRUE}
+require(learnr)
+library(learnr)
+
+```
+
+
+### Working with R
+R is a case-sensitive interpreted language. As we saw in class, we can have variables of different type. Similarly, R allows us to represent different data types, which we will see shortly. First, some definitions:
+
+* An _object_ in R is anything that can be assigned a value
+* Statements in R consist of functions and assignments. There are many in-built functions in R. R uses the symbol <- for assignments, rather than the more common = sign. For example, *x <- 5* assigns the value 5 to the variable x.
+* Anything after a **#** is treated as comments, and not executable code
+
+Why don't you try for yourself.
+
+Write the R code required to add two plus three and assign that to a variable called Y. Note, part of the required code is already given below. To print the value of the variable, just include the variable name in a separate line as shown below. Once you have written the code, click on the **Run Code** button.
+
+```{r add-assign, exercise=TRUE}
+y <- 
+y # this will print out the value of y
+
+```
+
+
+### Creating a Dataset
+What if you wanted to create a variable that contains more than one value? For example, let's assume that you are going downtown, and wanted to know how much money each of you has in the group. 
+
+The following code creates a variable called moneytoParty, and assigns the amount of money that five of you have. 
+```{r eval=TRUE}
+moneytoParty = c(23, 45, 56, 10, 2)
+moneytoParty
+
+```
+
+Notice we use the function *c()* to combine the values into a single variable. Now that we have a new variable with values, we can capture some basic descriptive statistics
+
+```{r eval=TRUE}
+mean(moneytoParty) # output the average amount of money
+sd(moneytoParty) # output the standard deviation of the amount of money
+```
+
+Why don't you try it. Write a code to create two new variables, *weight* and *dist* that capture the weight in pounds, and the travel time in minutes to school for the 5 students sitting closest to you. Part of the code is shown to you.
+
+* What is the average weight of your group?
+* What is the average travel time for students in your group?
+
+Remember to press the **Run Code** button to run your code.
+
+```{r dist-c, exercise=TRUE}
+weight <- c()
+
+```
+```{r dist-c-hint}
+weight <- c(134,145,132) # replace and add values as appropriate
+
+```
+
+### Getting Help in R
+R provides extensive help facilities and learning to navigate them will help you significantly. The simplest way to get help is to to type *help.start()* and this will open up a browser window with access to the manuals. Or, if you want help on a specific function, say *mean*, you can type *help("mean")*.
+
+Try it
+```{r get-help, exercise=TRUE}
+# fill in the rest of the code
+help
+
+```
+
+## R Workspace
+The workspace is your current R working environment, and includes any user-defined objects (vectors, matrices, etc.). A key concept here is the concept of the *current working directory*. 
+
+When we read or write files to the system, the program will by default look for the file in the current working directory. You can find out what the current working directory is by using the *getwd()* function. Similarly, you can set the current working directory using the *setwd()* function.
+
+To get help, type *help("getwd")* or *help("setwd")*
+
+Try it
+```{r set-d, exercise=TRUE}
+myCurrentdir <- getwd() # This will get the current directory
+myCurrentdir # print the current directory
+
+# Now you can set the working directory to another directory using setwd(). For example,
+
+setwd("~/.") # sets the WD to your default directory
+getwd() # This gives the new WD
+
+# Try setting and getting a new WD
+
+```
+
+## Reading a Dataset
+One of the most common ways of importing data is through a comma delimited file. To do that, we use the *read_csv()* function like in the following example. Note that, by default, the file is assumed to reside in your working directory. If not, you will need to specify the full file path. 
+
+```{r eval=TRUE}
+
+# Your file should be in the working directory. If not, either set the working directory to where the file is, or provide the full path to that directory.
+
+# Let us now read a CSV file that is available on the web, and write it to a dataframe (object) called testFile. 
+# The file gives hurricane and tropical storm counts for 2005-2015. Each record includes 13 values: month, historical average, counts for 2005 through 2015. Eight records are stored, for months "May" through "Dec". There is also an initial header line.
+
+testFile <- read.csv("https://people.sc.fsu.edu/~jburkardt/data/csv/hurricanes.csv")
+head(testFile)
+```
+
+Note that if you were reading a file on your computer, you would replace the web address of the file with your file path, as in the example below.
+
+We have provided two scenarios below. Use the one that is most appropriate for you
+
+### Scenario - Using Local Computer
+
+If you are using RStudio on your local computer, then proceed as follows:
+
+1. First, download the *Tech-Sales-Reps.csv* file from Module 1 on Canvas. 
+2. Note the file location
+3. Next, execute the code below, which will open up an interactive dialog
+4. Navigate to your file location, and click on the Tech-Sales-Reps.csv file
+
+The code below will 
+
+* read the file location, 
+* print the file location, 
+* will read the file using *read_csv()* function, and then
+* print the first few lines of the file
+
+```{r read-file, exercise=TRUE, exercise.lines=20}
+# request the path to an existing .csv file on disk
+# the file path is written to a variable called myFile
+
+myFile <- rstudioapi::selectFile(caption = "Select CSV File",
+                               filter = "CSV Files (*.csv)",
+                               existing = TRUE)
+
+myFile # prints out the location of the file
+
+# read the file into a dataframe called TechSales
+
+TechSales <- read.csv(myFile)
+head(TechSales) # prints the first few lines of the file
+
+
+
+```
+
+### Scenario - Using RStudio Cloud
+
+You should have uploaded the *Tech-Sales-Reps.csv* file by now. If not, do so.
+
+The code below will 
+
+* read the file location, 
+* print the file location, 
+* will read the file using *read_csv()* function, and then
+* print the first few lines of the file
+
+```{r read-file-studio, exercise=TRUE, exercise.lines=20}
+# request the path to an existing .csv file on disk
+# the file path is written to a variable called myFile
+
+myFile <- rstudioapi::selectFile(caption = "Select CSV File",
+                               filter = "CSV Files (*.csv)",
+                               existing = TRUE)
+
+myFile # prints out the location of the file
+
+# read the file into a dataframe called TechSales
+
+TechSales <- read.csv(myFile)
+head(TechSales) # prints the first few lines of the file
+
+
+```
+
+Alternatively, if you uploaded the files to your */cloud/project* directory online, then you can use the following code (make sure to uncomment the code before running)
+
+```{r direct-read, exercise=TRUE}
+#setwd("/cloud/project")
+#TechSales <- read.csv(file="Tech-Sales-Reps.csv")
+#head(TechSales)
+```
+
+
+## Conclusions
+At the end of this lesson, you should be comfortable with
+
+* Installing R and RStudio
+* The RStudio interface
+* Assigning values to variables
+* Calculating basic descriptive statistics
+* Understanding the concept of working directories
+* Reading a CSV file, and displaying the contents
+
+In the next lab, we will continue to explore the properties of the dataframe *TechSales*
