@@ -220,3 +220,5 @@ At the end of this lesson, you should be comfortable with
 * Reading a CSV file, and displaying the contents
 
 In the next lab, we will continue to explore the properties of the dataframe *TechSales*
+
+Maybe, maybe not !
